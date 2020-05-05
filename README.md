@@ -1,6 +1,6 @@
 # TokenExec 
 
-Just trying to learn how windows access token works and what we can do with it. You can use this tool to in red teaming engagements.
+Just trying to learn how windows access token works and what we can do with it. You can use this tool to in red team engagements.
 
 #### What it can do?
 
