@@ -9,6 +9,6 @@ Just trying to learn how windows access token works and what we can do with it. 
 
 1. Administrator -> SYSTEM or any user
 2. SYSTEM -> basically any user
-3. Don't try to get SERVICE account, you know it won't work (Soon going to add NamedPipe)
+3. Don't try to get SERVICE account.
 
 If you want SYSTEM then just use winlogon.exe process.
