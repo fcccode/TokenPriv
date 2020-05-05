@@ -4,8 +4,7 @@ Just trying to learn how windows access token works and what we can do with it. 
 
 #### What it can do?
 
-1. You need SeImpersonateName Priv.
-2. Run as Elevated priv
+You need SeImpersonateName Priv and Run as Elevated priv
 
 1. Administrator -> SYSTEM or any user
 2. SYSTEM -> basically any user
