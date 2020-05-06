@@ -12,4 +12,4 @@ You need SeImpersonateName Priv and Run as Elevated priv
 
 If you want SYSTEM then just use winlogon.exe process.
 
-![](https://i.ibb.co/VwpHqDr/unknown.png)
+![](https://i.ibb.co/cycXVBK/Capture.png)
