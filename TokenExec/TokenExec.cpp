@@ -2,13 +2,12 @@
 #include <Windows.h>
 #include <tchar.h>
 
-
 HANDLE GetToken(DWORD pid)
 {
 	HANDLE f = OpenProcess(MAXIMUM_ALLOWED, NULL, pid);
 	if (!f)
 	{
-		wprintf(L"Unable to get process %s\n", GetLastError());
+		wprintf(L"Unable to get process %d\n", GetLastError());
 		return FALSE;
 	}
 
@@ -16,7 +15,7 @@ HANDLE GetToken(DWORD pid)
 
 	if (!OpenProcessToken(f, MAXIMUM_ALLOWED, &process_token))
 	{
-		wprintf(L"Unable to get token %s\n", GetLastError());
+		wprintf(L"Unable to get token %d\n", GetLastError());
 		return FALSE;
 	}
 	return process_token;
@@ -29,13 +28,13 @@ BOOL GetTokenInfo(HANDLE process_token)
 
 	if (!GetTokenInformation(process_token, TokenElevation, &token, sizeof(token), &dwsize))
 	{
-		wprintf(L"Unable to get token infomation %s\n", GetLastError());
+		wprintf(L"Unable to get token infomation %d\n", GetLastError());
 		CloseHandle(process_token);
 	}
 
 	if (!dwsize)
 	{
-		wprintf(L"Unable to get data %s\n", GetLastError());
+		wprintf(L"Unable to get data %d\n", GetLastError());
 		CloseHandle(process_token);
 	}
 
@@ -55,7 +54,7 @@ BOOL GetTokenInfo(HANDLE process_token)
 	TOKEN_TYPE type;
 	if (!GetTokenInformation(process_token, TokenType, &type, sizeof(TokenType), &size))
 	{
-		wprintf(L"Unable to get token type %s\n", GetLastError());
+		wprintf(L"Unable to get token type %d\n", GetLastError());
 		CloseHandle(process_token);
 	}
 
@@ -75,10 +74,10 @@ HANDLE PrimaryToImpersonation(HANDLE process_token)
 {
 	HANDLE new_token;
 
-	if (!DuplicateTokenEx(process_token, MAXIMUM_ALLOWED, NULL, SecurityImpersonation, TokenImpersonation, &new_token))
+	if (!DuplicateTokenEx(process_token, TOKEN_ALL_ACCESS | TOKEN_DUPLICATE, NULL, SecurityImpersonation, TokenImpersonation, &new_token))
 	{
 		DWORD LastError = GetLastError();
-		wprintf(L"ERROR: Could not duplicate process token [%d]\n", LastError);
+		wprintf(L"unable to not duplicate process token %d\n", LastError);
 		return FALSE;
 	}
 	return new_token;
@@ -88,10 +87,10 @@ HANDLE ImpersonationToPrimary(HANDLE process_token)
 {
 	HANDLE new_token;
 
-	if (!DuplicateTokenEx(process_token, MAXIMUM_ALLOWED, NULL, SecurityImpersonation, TokenPrimary, &new_token))
+	if (!DuplicateTokenEx(process_token, TOKEN_ALL_ACCESS | TOKEN_DUPLICATE, NULL, SecurityImpersonation, TokenPrimary, &new_token))
 	{
 		DWORD LastError = GetLastError();
-		wprintf(L"ERROR: Could not duplicate process token [%d]\n", LastError);
+		wprintf(L"unable not duplicate process token %d\n", LastError);
 		return FALSE;
 	}
 	return new_token;
@@ -108,7 +107,7 @@ BOOL GetSystem(HANDLE process_token, LPCWSTR bin_to_exec)
 	{
 		DWORD lastError;
 		lastError = GetLastError();
-		wprintf(L"CreateProcessWithTokenW: %s\n", lastError);
+		wprintf(L"CreateProcessWithTokenW: %d\n", lastError);
 		return 1;
 	}
 }
@@ -127,7 +126,7 @@ BOOL GetTokenOwner(HANDLE process_token)
 
 	if (!GetTokenInformation(process_token, TokenOwner, token, dwsize, &dwsize))
 	{
-		wprintf(L"unable to get buffer size of token owner\n");
+		wprintf(L"unable to get token owner %d\n", GetLastError());
 		CloseHandle(process_token);
 		GlobalFree(token);
 		return FALSE;
