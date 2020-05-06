@@ -11,3 +11,5 @@ You need SeImpersonateName Priv and Run as Elevated priv
 3. Don't try to get SERVICE account.
 
 If you want SYSTEM then just use winlogon.exe process.
+
+![](https://i.ibb.co/VwpHqDr/unknown.png)
