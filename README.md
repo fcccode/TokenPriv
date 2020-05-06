@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-TokenExec 
-
-Just trying to learn how windows access token works and what we can do with it. I think CreateProcessWithTokenW() is better then setting a thread process. You can use this tool to in red teaming engagements.
-
-####What it can do?
-
-You need SeImpersonateName Priv.
-=======
 # TokenExec 
 
 Just trying to learn how windows access token works and what we can do with it. You can use this tool to in red team engagements.
@@ -22,4 +13,3 @@ You need SeImpersonateName Priv and Run as Elevated priv
 If you want SYSTEM then just use winlogon.exe process.
 
 ![](https://i.ibb.co/cycXVBK/Capture.png)
->>>>>>> fbaef3f5248e69a2ee91591c84738262cc066a8d
